@@ -29,3 +29,13 @@ Of course you might need
     $ vue create hello-vue
 
 Then follow cli to config your project. 
+
+## Install vuera
+
+    $ yarn add vuera
+    $ yarn add react
+    $ yarn add react-dom
+
+##　Use vuera
+
+You can follow [this document](https://github.com/akxcv/vuera/blob/master/README.md)
