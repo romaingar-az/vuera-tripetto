@@ -1,4 +1,4 @@
-# vuera-playground
+# vue-cli-demo
 
 ## Project setup
 ```
