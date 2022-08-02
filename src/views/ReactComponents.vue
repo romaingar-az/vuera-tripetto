@@ -1,17 +1,25 @@
 <template>
   <div class="react-components">
-    <h1>React table</h1>
+    <h1>Product table</h1>
     <Table :columns="columns" :dataSource="tableData" />
     <h1>AutoscrollRunner</h1>
     <AutoscrollRunner
-      :definition={form} />
+      :definition="form"
+      :customCSS="styles"
+      :onSubmit="getResponses"
+      :onChange="getResponse"
+      :onReady="formReady"
+      :onImport="formLoaded"
+       />
   </div>
 </template>
 
 <script>
 import { Table, Divider, Tag } from 'antd';
 import { AutoscrollRunner } from "tripetto-runner-autoscroll";
-//import { form } from "../form";
+import { Import, Export } from "tripetto-runner-foundation";
+import { Styles } from "../formCss";
+import "@/components/react/welcome-block";
 
 const Form = {
     "name": "ExitSurveyFR",
@@ -43,6 +51,27 @@ const Form = {
                         "fieldVariable": "cusdate"
                     }
                 },
+                {
+          "id": "2cca95dc2c8893c39f3a7882549792bdbc8cb1e16cac786247a853502461b54c",
+          "name": "Hello Everybody",
+          "nameVisible": true,
+          "placeholder": "Saisissez votre texte",
+          "slots": [
+            {
+              "id": "a100b92c0ee8bb8a6961659785b56db97cab4aef700e5bb774740e114d2d7079",
+              "type": "string",
+              "kind": "static",
+              "reference": "value",
+              "label": "Text input value",
+              "exportable": true
+            }
+          ],
+          "block": {
+            "type": "tripetto-az-products",
+            "version": "0.0.0",
+            "isMultiline": false
+          }
+        },
                 {
                     "id": "e65b45b5219b54fcb7dc6970dbfe0602dd99f553efb4ccb699a197a5b8f174b1",
                     "name": "Comment avez-vous connu Aroma-Zone ?",
@@ -179,11 +208,47 @@ export default {
       form: Form,
       columns: Columns,
       tableData: TableData,
+      styles:Styles
     }
   },
   components: {
     Table,
     AutoscrollRunner
+  },
+  methods: {
+    //https://tripetto.gitlab.io/websites/sdk-documentation/docs/runner/stock/api/autoscroll/interfaces/IAutoscrollProps
+    formReady:function(instance){
+       console.log(`form ready`);
+       Import.fields(instance, [
+        {
+          name:"cusdate",
+          value:"2022-07-21 12:00:00"
+        }
+      ])
+    },
+    formLoaded:function(instance){
+      console.log(`form loaded`);
+    },
+    getResponse:function(instance){
+      const exportables = Export.exportables(instance); 
+      exportables.fields.forEach((field) => {
+                            console.log(`${field.name}: ${field.string}`);
+          });
+    },
+    getResponses:function(instance){
+            // This exports all exportable data in the form 
+                 const exportables = Export.exportables(instance);
+                       // Iterate through all the fields 
+                       exportables.fields.forEach((field) => {
+                           // Output each field name and value to the console
+                            console.log(`${field.name}: ${field.string}`);
+                      });      
+                      // This exports the collected data as a CSV object
+                      const csv = Export.CSV(instance);
+                             // Output CSV to the console
+                             console.log(csv.fields);
+                             console.log(csv.record);    
+                    }
   }
 }
 </script>

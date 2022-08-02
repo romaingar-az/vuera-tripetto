@@ -16,7 +16,8 @@
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuera": "^0.2.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "tripetto-az-products":"https://github.com/romaingar-az/tripetto-az-products.git"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
