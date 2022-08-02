@@ -19,7 +19,7 @@ import { Table, Divider, Tag } from 'antd';
 import { AutoscrollRunner } from "tripetto-runner-autoscroll";
 import { Import, Export } from "tripetto-runner-foundation";
 import { Styles } from "../formCss";
-import "@/components/react/welcome-block";
+//import "@/components/react/welcome-block";
 
 const Form = {
     "name": "ExitSurveyFR",
